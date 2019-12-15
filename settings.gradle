@@ -1,0 +1,2 @@
+include ':app', ':domain', ':data', ':usecase'
+rootProject.name='Mp3 Player'
