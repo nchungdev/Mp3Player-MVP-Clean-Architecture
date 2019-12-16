@@ -1,4 +1,4 @@
-package com.nchungdev.data
+package com.nchungdev.data.network
 
 import com.nchungdev.domain.Track
 import io.reactivex.Single

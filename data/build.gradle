@@ -12,6 +12,10 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField "String", "APP_ID", "\"${getProperty("local.properties", "deezer_app_id")}\""
+        buildConfigField "String", "API_KEY", "\"${getProperty("local.properties", "deezer_secret")}\""
+        buildConfigField "String", "BASE_URL", "\"https://api.deezer.com/\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -21,6 +25,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
 }
@@ -33,7 +41,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
 
     // reactive
-    implementation "io.reactivex.rxjava2:rxjava:2.2.6"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.14"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
@@ -41,4 +49,19 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+def getProperty(String filename, String propName) {
+    def propsFile = rootProject.file(filename)
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        if (props[propName] != null) {
+            return props[propName]
+        } else {
+            print("No such property " + propName + " in file " + filename)
+        }
+    } else {
+        print(filename + " does not exist!")
+    }
 }

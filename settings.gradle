@@ -1,2 +1,2 @@
-include ':app', ':domain', ':data', ':usecase'
+include ':app', ':domain', ':data'
 rootProject.name='Mp3 Player'
